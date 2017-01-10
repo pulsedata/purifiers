@@ -1,7 +1,7 @@
-from sys import argv
 import json
 import requests
 import ast
+import argparse
 
 parser = argparse.ArgumentParser(description='Purify the graduates dataset.')
 parser.add_argument('filename', metavar="set_id", type=str, help="The filename to purify.")
@@ -44,15 +44,8 @@ for item in data:
 
 # TODO: Make this smarter, take flags.
 
-if len(argv) == 2:
-	print("Writing to file")
-	with open("out/%s" % args.filename_out, 'a') as f:
-		print("Received %s records." % len(fetched))
-		f.write(json.dumps(fetched, indent=2))
-	print("Done")
-else:
-	print("Assuming debug run")
-	error = original_count - len(new_set)
-	print("Skipped %d records" % error)
-	print("Sample item:")
-	print(json.dumps(new_set[1], indent=4))
+print("Writing to file")
+with open("out/%s" % args.filename_out, 'a') as f:
+	print("Received %s records." % len(new_set))
+	f.write(json.dumps(new_set, indent=2))
+print("Done")
